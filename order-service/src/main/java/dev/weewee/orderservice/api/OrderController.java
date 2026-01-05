@@ -1,8 +1,9 @@
 package dev.weewee.orderservice.api;
 
-import dev.weewee.orderservice.domain.OrderEntity;
+import dev.weewee.api.http.order.CreateOrderRequestDto;
+import dev.weewee.api.http.order.OrderDto;
 import dev.weewee.orderservice.domain.OrderProcessor;
-import dev.weewee.orderservice.domain.OrderEntityMapper;
+import dev.weewee.orderservice.domain.db.OrderEntityMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +28,14 @@ public class OrderController {
     public OrderDto getOne(@PathVariable Long id) {
         var found = orderProcessor.getOrderOrThrow(id);
         return orderEntityMapper.toOrderDto(found);
+    }
+
+    @PostMapping("/{id}/pay")
+    public OrderDto payOrder(
+            @PathVariable Long id,
+            @RequestBody OrderPaymentRequest request) {
+        log.info("Paying order with id={}, request={}", id, request);
+        var entity = orderProcessor.processPayment(id, request);
+        return orderEntityMapper.toOrderDto(entity);
     }
 }

@@ -1,7 +1,7 @@
-package dev.weewee.orderservice.domain;
+package dev.weewee.orderservice.domain.db;
 
-import dev.weewee.orderservice.api.CreateOrderRequestDto;
-import dev.weewee.orderservice.api.OrderDto;
+import dev.weewee.api.http.order.CreateOrderRequestDto;
+import dev.weewee.api.http.order.OrderDto;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

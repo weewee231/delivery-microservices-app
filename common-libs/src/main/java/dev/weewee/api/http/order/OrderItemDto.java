@@ -1,12 +1,7 @@
-package dev.weewee.orderservice.api;
-
-import dev.weewee.orderservice.domain.OrderItemEntity;
+package dev.weewee.api.http.order;
 
 import java.math.BigDecimal;
 
-/**
- * DTO for {@link OrderItemEntity}
- */
 public record OrderItemDto(
         Long id,
         Long itemId,

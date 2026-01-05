@@ -1,4 +1,4 @@
-package dev.weewee.orderservice.domain;
+package dev.weewee.orderservice.domain.db;
 
 import jakarta.persistence.*;
 import lombok.Getter;

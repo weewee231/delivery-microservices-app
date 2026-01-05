@@ -1,6 +1,6 @@
-package dev.weewee.orderservice.domain;
+package dev.weewee.orderservice.domain.db;
 
-import dev.weewee.orderservice.domain.OrderStatus;
+import dev.weewee.api.http.order.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

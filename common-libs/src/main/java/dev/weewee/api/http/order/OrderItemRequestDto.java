@@ -1,4 +1,4 @@
-package dev.weewee.orderservice.api;
+package dev.weewee.api.http.order;
 
 public record OrderItemRequestDto(
         Long itemId,
