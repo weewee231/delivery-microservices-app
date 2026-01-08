@@ -1,5 +1,6 @@
 package dev.weewee.orderservice.domain.db;
 
+import dev.weewee.orderservice.domain.db.OrderEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

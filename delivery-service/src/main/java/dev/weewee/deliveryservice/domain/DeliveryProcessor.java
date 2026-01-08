@@ -2,7 +2,7 @@ package dev.weewee.deliveryservice.domain;
 
 import dev.weewee.api.kafka.DeliveryAssignedEvent;
 import dev.weewee.api.kafka.OrderPaidEvent;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,14 +12,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeliveryProcessor {
 
     private final DeliveryEntityRepository repository;
     private final KafkaTemplate<Long, DeliveryAssignedEvent> kafkaTemplate;
 
     @Value("${delivery-assigned-topic}")
-    private  String deliveryAssignedTopic;
+    private String deliveryAssignedTopic;
 
     public void processOrderPaid(OrderPaidEvent event) {
         var orderId = event.orderId();

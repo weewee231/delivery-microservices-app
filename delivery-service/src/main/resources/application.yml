@@ -1,6 +1,6 @@
 spring:
   application:
-    name: payment-service
+    name: delivery-service
   datasource:
     driver-class-name: org.postgresql.Driver
     password: postgres
@@ -14,7 +14,7 @@ spring:
       group-id: delivety-service-group
     bootstrap-servers: localhost:9092
 server:
-  port: 8083
+  port: 8082
 
 order-paid-topic: orders.event
 delivery-assigned-topic: delivery.event
