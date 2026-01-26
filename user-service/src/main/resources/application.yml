@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: user-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5440/users
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8083
+
+jwt:
+  secret: EwHQXJw26KuLWWXecCmYlsIA6AQ346OMn1S+zk6n5OV2Twmeg0v5d2x+7qiPDuIi
+  access-token-expiration: 900000     
+  refresh-token-expiration: 604800000 
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    dev.weewee.userservice: DEBUG
+    org.hibernate.SQL: DEBUG
+
