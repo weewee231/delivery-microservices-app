@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +18,13 @@ public class OrderController {
 
     private final OrderProcessor orderProcessor;
     private final OrderEntityMapper orderEntityMapper;
+
+    @GetMapping
+    public List<OrderDto> getAll() {
+        return orderProcessor.getAllOrders().stream()
+                .map(orderEntityMapper::toOrderDto)
+                .toList();
+    }
 
     @PostMapping
     public OrderDto create(@RequestBody CreateOrderRequestDto request) {
@@ -36,6 +45,13 @@ public class OrderController {
             @RequestBody OrderPaymentRequest request) {
         log.info("Paying order with id={}, request={}", id, request);
         var entity = orderProcessor.processPayment(id, request);
+        return orderEntityMapper.toOrderDto(entity);
+    }
+
+    @PutMapping("/{id}/cancel")
+    public OrderDto cancelOrder(@PathVariable Long id) {
+        log.info("Cancelling order with id={}", id);
+        var entity = orderProcessor.cancelOrder(id);
         return orderEntityMapper.toOrderDto(entity);
     }
 }

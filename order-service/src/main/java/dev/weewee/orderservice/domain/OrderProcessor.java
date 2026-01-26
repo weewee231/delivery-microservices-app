@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
@@ -34,10 +35,23 @@ public class OrderProcessor {
     @Value("${order-paid-topic}")
     private String orderPaidTopic;
 
+    public List<OrderEntity> getAllOrders() {
+        return repository.findAll();
+    }
+
     public OrderEntity create(CreateOrderRequestDto request) {
         var entity = orderEntityMapper.toEntity(request);
         calculatePricingForOrder(entity);
         entity.setOrderStatus(OrderStatus.PENDING_PAYMENT);
+        return repository.save(entity);
+    }
+
+    public OrderEntity cancelOrder(Long id) {
+        var entity = getOrderOrThrow(id);
+        if (entity.getOrderStatus() == OrderStatus.DELIVERED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot cancel delivered order");
+        }
+        entity.setOrderStatus(OrderStatus.CANCELLED);
         return repository.save(entity);
     }
 
