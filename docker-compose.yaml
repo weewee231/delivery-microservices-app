@@ -5,7 +5,7 @@ services:
     ports:
       - "5439:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -16,6 +16,25 @@ services:
       timeout: 5s
       start_period: 10s
       retries: 5
+
+  postgres-users:
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - "5440:5432"
+    volumes:
+      - postgres_users_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: users
+    healthcheck:
+      test: pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+
   kafka:
     image: confluentinc/cp-kafka:8.1.1
     restart: unless-stopped
@@ -43,6 +62,21 @@ services:
       retries: 5
     labels:
       amplicode.image: confluent/kafka
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    restart: unless-stopped
+    ports:
+      - "8090:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      DYNAMIC_CONFIG_ENABLED: "true"
+    depends_on:
+      kafka:
+        condition: service_healthy
+
 volumes:
   postgres_data:
+  postgres_users_data:
   kafka_data:
