@@ -17,6 +17,11 @@
           <package value="dev.weewee.deliveryservice" />
         </packages>
       </persistence-unit>
+      <persistence-unit moduleName="order-platform.user-service.main" name="Default">
+        <packages>
+          <package value="dev.weewee.userservice" />
+        </packages>
+      </persistence-unit>
     </persistence-units>
   </component>
 </project>
