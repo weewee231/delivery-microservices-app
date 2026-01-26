@@ -16,12 +16,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceClient {
 
-    @Qualifier("orderServiceClient")
-    private final WebClient orderServiceClient;
+    @Qualifier("orderWebClient")
+    private final WebClient orderWebClient;
 
     public List<OrderDto> getAllOrders() {
         try {
-            return orderServiceClient.get()
+            return orderWebClient.get()
                     .uri("/api/orders")
                     .retrieve()
                     .bodyToMono(new ParameterizedTypeReference<List<OrderDto>>() {})
@@ -34,7 +34,7 @@ public class OrderServiceClient {
 
     public OrderDto getOrderById(Long id) {
         try {
-            return orderServiceClient.get()
+            return orderWebClient.get()
                     .uri("/api/orders/{id}", id)
                     .retrieve()
                     .bodyToMono(OrderDto.class)
@@ -47,7 +47,7 @@ public class OrderServiceClient {
 
     public OrderDto cancelOrder(Long id) {
         try {
-            return orderServiceClient.put()
+            return orderWebClient.put()
                     .uri("/api/orders/{id}/cancel", id)
                     .retrieve()
                     .bodyToMono(OrderDto.class)

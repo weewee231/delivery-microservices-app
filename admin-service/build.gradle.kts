@@ -31,7 +31,7 @@ dependencies {
 	testAnnotationProcessor("org.projectlombok:lombok")
 
 	// swagger
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4")
 }
 
 tasks.withType<Test> {

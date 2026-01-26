@@ -16,12 +16,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceClient {
 
-    @Qualifier("userServiceClient")
-    private final WebClient userServiceClient;
+    @Qualifier("userWebClient")
+    private final WebClient userWebClient;
 
     public List<UserDto> getAllUsers() {
         try {
-            return userServiceClient.get()
+            return userWebClient.get()
                     .uri("/api/users")
                     .retrieve()
                     .bodyToMono(new ParameterizedTypeReference<List<UserDto>>() {})
@@ -34,7 +34,7 @@ public class UserServiceClient {
 
     public UserDto getUserById(Long id) {
         try {
-            return userServiceClient.get()
+            return userWebClient.get()
                     .uri("/api/users/{id}", id)
                     .retrieve()
                     .bodyToMono(UserDto.class)
@@ -47,7 +47,7 @@ public class UserServiceClient {
 
     public void deleteUser(Long id) {
         try {
-            userServiceClient.delete()
+            userWebClient.delete()
                     .uri("/api/users/{id}", id)
                     .retrieve()
                     .toBodilessEntity()

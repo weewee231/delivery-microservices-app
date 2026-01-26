@@ -20,29 +20,29 @@ public class ServiceClientsConfig {
     @Value("${services.user-service.base-url}")
     private String userServiceUrl;
 
-    @Bean
-    public WebClient orderServiceClient() {
+    @Bean("orderWebClient")
+    public WebClient orderWebClient() {
         return WebClient.builder()
                 .baseUrl(orderServiceUrl)
                 .build();
     }
 
-    @Bean
-    public WebClient paymentServiceClient() {
+    @Bean("paymentWebClient")
+    public WebClient paymentWebClient() {
         return WebClient.builder()
                 .baseUrl(paymentServiceUrl)
                 .build();
     }
 
-    @Bean
-    public WebClient deliveryServiceClient() {
+    @Bean("deliveryWebClient")
+    public WebClient deliveryWebClient() {
         return WebClient.builder()
                 .baseUrl(deliveryServiceUrl)
                 .build();
     }
 
-    @Bean
-    public WebClient userServiceClient() {
+    @Bean("userWebClient")
+    public WebClient userWebClient() {
         return WebClient.builder()
                 .baseUrl(userServiceUrl)
                 .build();
