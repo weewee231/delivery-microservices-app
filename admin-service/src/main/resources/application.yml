@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: admin-service
+
+server:
+  port: 8084
+
+# URLs других сервисов
+services:
+  order-service:
+    base-url: http://localhost:8080
+  payment-service:
+    base-url: http://localhost:8081
+  delivery-service:
+    base-url: http://localhost:8082
+  user-service:
+    base-url: http://localhost:8083
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    dev.weewee.adminservice: DEBUG
+
